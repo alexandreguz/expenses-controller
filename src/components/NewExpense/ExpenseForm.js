@@ -2,9 +2,10 @@ import React, {useState} from "react";
 import './ExpenseForm.css';
 
 const ExpenseForm = (props) => {
-    const [enteredTitle, setEnteredTitle] = useState("")
-    const [enteredAmount, setEnteredAmount] = useState("")
-    const [enteredDate, setEnteredDate] = useState("")
+    const [enteredTitle, setEnteredTitle] = useState("");
+    const [enteredAmount, setEnteredAmount] = useState("");
+    const [enteredDate, setEnteredDate] = useState("");
+    const [enteredCategory, setEnteredCategory] = useState("");
 
     const TitleChangeHandler = (event) => {
         setEnteredTitle(event.target.value)
@@ -15,6 +16,9 @@ const ExpenseForm = (props) => {
     const DateChangeHandler = (event) => {
         setEnteredDate(event.target.value)
     }
+    const categoryChangeHandler = (event) => {
+        setEnteredCategory(event.target.value)
+    }
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -22,12 +26,14 @@ const ExpenseForm = (props) => {
         const expenseData = {
             title: enteredTitle,
             amount: enteredAmount,
-            date: new Date(enteredDate)
+            date: new Date(enteredDate),
+            category: enteredCategory
         }
         props.onSaveExpenseData(expenseData)
         setEnteredTitle("");
         setEnteredAmount("");
         setEnteredDate("");
+        setEnteredCategory("");
     }
 
     return(
@@ -47,15 +53,16 @@ const ExpenseForm = (props) => {
                 </div>
                 <div className="new-expense__control">
                     <label>Category</label>
-                    <select >
-                        <option value='2022'>Fruits</option>
-                        <option value='2021'>Vegetables</option>
-                        <option value='2020'>Dairy Products</option>
-                        <option value='2019'>Meat</option>
+                    <select onChange={categoryChangeHandler}>
+                        <option value='fruits'>Fruits</option>
+                        <option value='vegetables'>Vegetables</option>
+                        <option value='dairy'>Dairy Products</option>
+                        <option value='meat'>Meat</option>
                     </select>
                 </div>
             </div>
             <div className="new-expense__actions">
+                <button type="button" onClick={props.onCancel}>Cancel</button>
                 <button type="submit">Add Expense</button>
             </div>
         </form>
