@@ -11,9 +11,12 @@ const ExpensesList = props => {
                 {props.items.map(expense => 
                   <ExpenseItem 
                   key={expense.id}
-                  title={expense.title} 
+                  category={expense.category} 
                   amount={expense.amount} 
+                  quantity={expense.quantity}
                   date={expense.date}
+                  kind={expense.kind}
+                  product={expense.product}
                   />
                 )}
             </ul>

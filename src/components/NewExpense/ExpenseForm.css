@@ -17,7 +17,7 @@
     padding: 0.5rem;
     border-radius: 6px;
     border: 1px solid #ccc;
-    width: 20rem;
+    width: 8rem;
     max-width: 100%;
   }
 
@@ -27,7 +27,7 @@
     font-weight: bold;
     border-radius: 6px;
   }
-  
+
   .new-expense__actions {
     text-align: right;
   }

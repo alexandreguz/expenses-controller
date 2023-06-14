@@ -30,7 +30,7 @@ import NewExpense from './components/NewExpense/NewExpense';
 
 
   const addExpenseHandler = expense => {
-    // console.log(expense);
+    console.log(expense);
     setExpenses((previousExpenses) => {
       return [expense, ...previousExpenses]
       
