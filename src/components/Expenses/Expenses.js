@@ -7,26 +7,46 @@ import ExpensesChart from "./ExpensesChart";
 
 const Expenses = (props) => {
   const [filteredYear, setFilteredYear] = useState('2020')
+  const [filteredCategory, setFilteredCategory] = useState("")
+  const [filteredMonth, setFilteredMonth] = useState("")
 
-  const filterChangeHandler = (selectedYear) => {
+  const yearFilterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear)
   };
 
+  const monthFilterChangeHandler = (selectedMonth) => {
+    setFilteredMonth(selectedMonth)
+  };
+
+   const categoryFilterChangeHandler = (selectedCategory) => {
+    setFilteredCategory(selectedCategory)
+   }
+
   const filteredExpenses = props.items.filter(expense => {
-      return expense.date.getFullYear().toString() === filteredYear
+      return (
+        (filteredYear === '' || expense.date.getFullYear().toString() === filteredYear) &&
+        (filteredMonth === '' || expense.date.getMonth().toString() === filteredMonth) &&
+        (filteredCategory === '' || expense.category === filteredCategory)
+        )
     });
 
- 
+    const total = filteredExpenses.reduce((acc, expense) => acc + expense.amount, 0);
+
 
     return (
       <div>
         <Card className="expenses">
             <ExpensesFilter 
               selected={filteredYear} 
-              onChangeFilter={filterChangeHandler}
+              onChangeYearFilter={yearFilterChangeHandler}
+              onChangeMonthFilter={monthFilterChangeHandler}
+              onChangeCategoryFilter={categoryFilterChangeHandler}
             />
-            <ExpensesChart expenses={filteredExpenses} />
+            <ExpensesChart items={filteredExpenses} />
             <ExpensesList items={filteredExpenses}/>
+
+            <h3>Total Expenses: {total}</h3>
+
         </Card>
         </div>
     );
